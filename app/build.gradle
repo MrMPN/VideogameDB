@@ -51,6 +51,11 @@ android {
         autoCorrect = true
         buildUponDefaultConfig = true
     }
+    lintOptions {
+        //checkDependencies true
+        ignoreTestSources true
+        lintConfig rootProject.file('config/lint/lint.xml')
+    }
 }
 
 dependencies {
