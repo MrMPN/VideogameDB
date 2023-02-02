@@ -25,6 +25,7 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+        archivesBaseName = "$applicationId-v$versionName($versionCode)"
     }
 
     signingConfigs {
