@@ -4,6 +4,12 @@ plugins {
     id "io.gitlab.arturbosch.detekt"
 }
 
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
     namespace 'com.mrmpn.videogamedb'
     compileSdk 33
@@ -18,6 +24,15 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
+        }
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(keystoreProperties.getProperty('storeFile', 'release.keystore'))
+            storePassword keystoreProperties.getProperty('storePassword')
+            keyAlias keystoreProperties.getProperty('keyAlias')
+            keyPassword keystoreProperties.getProperty('keyPassword')
         }
     }
 
