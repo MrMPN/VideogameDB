@@ -73,6 +73,11 @@ android {
         ignoreTestSources true
         lintConfig rootProject.file('config/lint/lint.xml')
     }
+    testOptions.unitTests.all {
+        testLogging {
+            events = ["passed", "failed", "skipped", "standardOut", "standardError"]
+        }
+    }
 }
 
 dependencies {
