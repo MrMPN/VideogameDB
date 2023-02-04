@@ -1,0 +1,67 @@
+name: Build & Publish Release APK
+
+permissions:
+  contents: write
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  release:
+    name: Create release for Github
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout code
+      uses: actions/checkout@v3
+
+    - name: Exit if not on master branch
+      if: endsWith(github.event.base_ref, 'master') == false
+      run: exit -1
+
+    - name: set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Make Gradle executable
+      run: chmod +x ./gradlew
+      
+    - name: Prepare Keystore
+      run: |
+        echo "${{ secrets.KEYSTORE }}" | base64 -d > keystore.jks.asc
+        gpg -d --passphrase "${{ secrets.PASSPHRASE }}" --batch "keystore.jks.asc" > "keystore.jks"
+
+    - name: Prepare Keystore properties
+      run: | 
+        echo "${{ secrets.KEYSTORE_PROPERTIES }}" | base64 -d > keystore.properties.asc
+        gpg -d --passphrase "${{ secrets.PASSPHRASE }}" --batch "keystore.properties.asc" > "keystore.properties"
+
+    - name: Bump version
+      uses: chkfung/android-version-actions@v1.2.1
+      with:
+        gradlePath: app/build.gradle
+        versionCode: ${{github.run_number}}
+        versionName: ${{github.ref_name}}
+
+    - name: Build Release APK
+      uses: gradle/gradle-build-action@v2
+      with:
+        arguments: assembleRelease
+      
+    - name: Build Changelog
+      id: github_release
+      uses: mikepenz/release-changelog-builder-action@v3
+      with:
+        configuration: "config/release-changelog-builder-action/config.json"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: app/build/outputs/apk/release/*.apk
+        body: ${{steps.github_release.outputs.changelog}}

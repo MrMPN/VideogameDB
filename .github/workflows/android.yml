@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  codesmell:
+    name: Code Smell (Detekt, Lint)
+    uses: ./.github/workflows/launch_gradle_commands.yml
+    secrets: inherit
+    with:
+      commands: lintDebug detektDebug  --continue
+      job_id: codesmell
+
+  unitTest:
+    name: Unit Tests
+    uses: ./.github/workflows/launch_gradle_commands.yml
+    secrets: inherit
+    with:
+      commands: testDebugUnitTest
+      job_id: unitTest
+
+  generateApks:
+    name: Generate APKs for tests
+    uses: ./.github/workflows/launch_gradle_commands.yml
+    secrets: inherit
+    with:
+      commands: assembleDebug assembleDebugAndroidTest
+      job_id: generateApks
+
+  uiTests:
+    name: UI Tests on Firebase Test Labs
+    needs: [generateApks, unitTest, codesmell]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download App Debug APK
+        id: app-debug-download
+        uses: actions/download-artifact@v3
+        with:
+          name: app-debug
+
+      - name: Download Android Test APK
+        id: android-test-download
+        uses: actions/download-artifact@v3
+        with:
+          name: app-debug-androidTest
+
+      - name: Rename APKs
+        run: mv *-debug-androidTest.apk app-debug-androidTest.apk
+
+      - name: Rename APKs
+        run: mv *-debug.apk app-debug.apk
+
+      - name: Run tests on Firebase Test Lab
+        uses: asadmansr/Firebase-Test-Lab-Action@v1.0
+        with:
+          arg-spec: 'tests.yml:android-pixel-5'
+        env:
+          SERVICE_ACCOUNT: ${{ secrets.FIREBASE_TEST_LAB_AUTH }}

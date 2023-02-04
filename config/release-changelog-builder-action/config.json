@@ -1,0 +1,46 @@
+{
+  "categories": [
+    {
+      "title": "## 🚀 Features",
+      "labels": ["feature"]
+    },
+    {
+      "title": "## 🐛 Fixes",
+      "labels": ["fix"]
+    },
+    {
+      "title": "## 🧪 Tests",
+      "labels": ["test"]
+    },
+    {
+      "title": "## 💬 Other",
+      "labels": ["other"]
+    },
+    {
+      "title": "## 📦 Dependencies",
+      "labels": ["dependencies"]
+    },
+    {
+      "title": "## 📝 Docs",
+      "labels": ["docs"]
+    },
+    {
+      "title": "## 🛠️ Refactor",
+      "labels": ["refactor"]
+    },
+    {
+      "title": "## 🧹 Chores",
+      "labels": ["chore"]
+    },
+    {
+      "title": "## 🚨 CI/CD",
+      "labels": ["ci/cd"]
+    }
+  ],
+  "sort": "ASC",
+  "template": "${{CHANGELOG}}",
+  "pr_template": "- ${{TITLE}}\n   - PR: #${{NUMBER}}",
+  "empty_template": "- no changes",
+  "max_pull_requests": 1000,
+  "max_back_track_time_days": 1000
+}

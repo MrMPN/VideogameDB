@@ -1,0 +1,72 @@
+name: Gradle Executable Environment
+
+on:
+  workflow_call:
+    inputs:
+      commands:
+        required: true
+        type: string
+      job_id:
+        required: true
+        type: string
+
+jobs:
+  launch_gradle_commands:
+    name: Gradle
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Write compile time google-services.json file
+        run: |
+          echo "${{ secrets.GOOGLE_SERVICES }}" | base64 -d > google-services.json.asc
+          gpg -d --passphrase "${{ secrets.PASSPHRASE }}" --batch "google-services.json.asc" > app/google-services.json
+
+      - name: Running gradle commands:\ ${{ inputs.commands }}
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: ${{ inputs.commands }}
+
+      - name: Uploading App Debug Build
+        if: inputs.job_id == 'generateApks'
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-debug
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+
+      - name: Uploading Android Test Build
+        if: inputs.job_id == 'generateApks'
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-debug-androidTest
+          path: app/build/outputs/apk/androidTest/debug/*.apk
+          if-no-files-found: error
+
+      - name: Uploading Lint report
+        if: (success() || failure()) && inputs.job_id == 'codesmell'
+        uses: actions/upload-artifact@v3
+        with:
+          name: lint-report
+          path: app/build/reports/lint-results-debug.html
+      
+      - name: Create Detekt summary
+        if: (success() || failure()) && inputs.job_id == 'codesmell'
+        run: cat app/build/reports/detekt/debug.md >> $GITHUB_STEP_SUMMARY
+
+      - name: Test Report
+        uses: phoenix-actions/test-reporting@v10
+        if: (success() || failure()) && inputs.job_id == 'unitTest'
+        with:
+          name: Unit Tests           
+          path: app/build/test-results/**/TEST-*.xml
+          reporter: java-junit
+          output-to: step-summary  
