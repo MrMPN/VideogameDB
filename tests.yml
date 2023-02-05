@@ -1,0 +1,9 @@
+android-pixel-5:
+  type: instrumentation
+  app: app-debug.apk
+  test: app-debug-androidTest.apk
+  device:
+    - model: oriole
+      version: 31
+      locale: 'en'
+      orientation: portrait
