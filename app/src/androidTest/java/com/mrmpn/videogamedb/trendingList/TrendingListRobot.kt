@@ -1,15 +1,16 @@
 package com.mrmpn.videogamedb.trendingList
 
 import androidx.compose.ui.test.assertContentDescriptionEquals
+import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.onAllNodesWithContentDescription
+import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onFirst
 import com.mrmpn.videogamedb.ActivityComposeTestRule
 import com.mrmpn.videogamedb.R
 import com.mrmpn.videogamedb.ui.theme.VideogameDBTheme
-import com.mrmpn.videogamedb.ui.trendingList.Game
+import com.mrmpn.videogamedb.ui.trendingList.GamePreviewParameterProvider
 import com.mrmpn.videogamedb.ui.trendingList.TrendingListScreen
-import kotlinx.collections.immutable.persistentListOf
-import java.time.LocalDate
+import kotlinx.collections.immutable.toImmutableList
 
 fun launchTrendingList(
     rule: ActivityComposeTestRule,
@@ -22,10 +23,7 @@ class TrendingListRobot(
     private val rule: ActivityComposeTestRule
 ) {
 
-    val games = persistentListOf(
-        Game(0, "God of War", LocalDate.of(2022, 11, 5)),
-        Game(1, "Elden Ring", LocalDate.of(2022, 2, 24))
-    )
+    val games = GamePreviewParameterProvider().values.toImmutableList()
 
     fun startTrendingListScreen() {
         rule.setContent {
@@ -43,9 +41,9 @@ class TrendingListRobot(
         private val rule: ActivityComposeTestRule
     ) {
         fun trendingListContentIsDisplayed() {
-            rule.onAllNodesWithContentDescription(
+            rule.onAllNodesWithTag(
                 rule.activity.getString(R.string.item_game_title)
-            ).onFirst().assertContentDescriptionEquals(games[0].title)
+            ).onFirst().assertTextEquals(games[0].title)
         }
     }
 }
