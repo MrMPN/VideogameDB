@@ -1,4 +1,4 @@
-package com.mrmpn.videogamedb.ui.trendingList
+package com.mrmpn.videogamedb.ui.screens.trendingList
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +23,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mrmpn.videogamedb.R
+import com.mrmpn.videogamedb.ui.models.Game
+import com.mrmpn.videogamedb.ui.providers.GamePreviewParameterProvider
 import com.mrmpn.videogamedb.ui.theme.Grey
 import com.mrmpn.videogamedb.ui.theme.VideogameDBTheme
 import kotlinx.collections.immutable.ImmutableList

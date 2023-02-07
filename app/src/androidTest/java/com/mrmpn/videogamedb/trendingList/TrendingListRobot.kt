@@ -1,15 +1,13 @@
 package com.mrmpn.videogamedb.trendingList
 
-import androidx.compose.ui.test.assertContentDescriptionEquals
 import androidx.compose.ui.test.assertTextEquals
-import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onFirst
 import com.mrmpn.videogamedb.ActivityComposeTestRule
 import com.mrmpn.videogamedb.R
 import com.mrmpn.videogamedb.ui.theme.VideogameDBTheme
-import com.mrmpn.videogamedb.ui.trendingList.GamePreviewParameterProvider
-import com.mrmpn.videogamedb.ui.trendingList.TrendingListScreen
+import com.mrmpn.videogamedb.ui.providers.GamePreviewParameterProvider
+import com.mrmpn.videogamedb.ui.screens.trendingList.TrendingListScreen
 import kotlinx.collections.immutable.toImmutableList
 
 fun launchTrendingList(

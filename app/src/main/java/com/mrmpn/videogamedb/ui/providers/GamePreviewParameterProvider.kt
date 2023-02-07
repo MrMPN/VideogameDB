@@ -1,6 +1,7 @@
-package com.mrmpn.videogamedb.ui.trendingList
+package com.mrmpn.videogamedb.ui.providers
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import com.mrmpn.videogamedb.ui.models.Game
 import java.time.LocalDate
 
 class GamePreviewParameterProvider : PreviewParameterProvider<Game> {

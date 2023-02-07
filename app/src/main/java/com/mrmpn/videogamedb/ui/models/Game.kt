@@ -1,4 +1,4 @@
-package com.mrmpn.videogamedb.ui.trendingList
+package com.mrmpn.videogamedb.ui.models
 
 import java.time.LocalDate
 
