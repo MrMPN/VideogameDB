@@ -4,13 +4,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mrmpn.videogamedb.data.GameRepository
 import com.mrmpn.videogamedb.ui.models.Game
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TrendingListViewModel(private val gameRepository: GameRepository) : ViewModel() {
+@HiltViewModel
+class TrendingListViewModel @Inject constructor(private val gameRepository: GameRepository) : ViewModel() {
 
     sealed interface UiState {
         object InitialState : UiState
