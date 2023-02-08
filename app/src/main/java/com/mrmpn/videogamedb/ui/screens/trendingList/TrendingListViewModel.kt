@@ -13,7 +13,6 @@ import kotlinx.coroutines.launch
 class TrendingListViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
     sealed interface UiState {
-
         object InitialState: UiState
         object Loading : UiState
         data class Success(val games: List<Game>) : UiState
