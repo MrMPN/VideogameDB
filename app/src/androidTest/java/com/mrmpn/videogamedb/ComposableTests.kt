@@ -1,36 +1,23 @@
-package com.mrmpn.videogamedb.gameListScreen
+package com.mrmpn.videogamedb
 
+import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import com.mrmpn.videogamedb.R
-import com.mrmpn.videogamedb.di.HiltComponentActivity
 import com.mrmpn.videogamedb.ui.providers.GamePreviewParameterProvider
 import com.mrmpn.videogamedb.ui.screens.trendingList.GameListScreen
 import com.mrmpn.videogamedb.ui.theme.VideogameDBTheme
 import com.mrmpn.videogamedb.utils.waitUntilNodeCount
-import dagger.hilt.android.testing.HiltAndroidRule
-import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.collections.immutable.toImmutableList
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-@HiltAndroidTest
-class GameListScreenTest {
+class ComposableTests {
 
-    @get:Rule(order = 0)
-    var hiltRule = HiltAndroidRule(this)
-
-    @get:Rule(order = 1)
-    val activityRule = createAndroidComposeRule<HiltComponentActivity>()
-
-    @Before
-    fun init() {
-        hiltRule.inject()
-    }
+    @get:Rule
+    val activityRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun gameListScreenDisplaysList() {
+    fun gameListScreenComposableDisplaysList() {
         val tag = activityRule.activity.getString(R.string.item_game_title)
         val games = GamePreviewParameterProvider().values.toImmutableList()
 

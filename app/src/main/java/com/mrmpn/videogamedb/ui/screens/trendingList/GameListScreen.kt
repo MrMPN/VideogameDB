@@ -40,9 +40,9 @@ fun GameListScreen(viewModel: TrendingListViewModel = viewModel()) {
 
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     when (val s = state) {
-        TrendingListViewModel.UiState.InitialState -> TODO()
-        is TrendingListViewModel.UiState.Loading -> TODO()
-        is TrendingListViewModel.UiState.Error -> TODO()
+        TrendingListViewModel.UiState.InitialState -> Unit
+        is TrendingListViewModel.UiState.Loading -> Unit
+        is TrendingListViewModel.UiState.Error -> Unit
         is TrendingListViewModel.UiState.Success -> GameListScreen(games = s.games.toImmutableList())
     }
 }

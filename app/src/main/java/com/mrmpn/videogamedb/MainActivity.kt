@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import com.mrmpn.videogamedb.ui.screens.trendingList.GameListScreen
 import com.mrmpn.videogamedb.ui.theme.VideogameDBTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.collections.immutable.persistentListOf
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -23,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GameListScreen(games = persistentListOf())
+                    GameListScreen()
                 }
             }
         }
