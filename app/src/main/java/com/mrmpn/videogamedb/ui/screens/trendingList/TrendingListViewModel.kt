@@ -1,26 +1,38 @@
 package com.mrmpn.videogamedb.ui.screens.trendingList
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.mrmpn.videogamedb.data.GameRepository
 import com.mrmpn.videogamedb.ui.models.Game
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
-class TrendingListViewModel : ViewModel() {
+class TrendingListViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
-    data class UiState(
-        val isLoading: Boolean = false,
-        val isError: Boolean = false,
-        val errorMessage: String? = null,
-        val games: ImmutableList<Game> = persistentListOf()
-    )
+    sealed interface UiState {
 
-    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState())
+        object InitialState: UiState
+        object Loading : UiState
+        data class Success(val games: List<Game>) : UiState
+        data class Error(val errorMessage: String? = null) : UiState
+    }
+
+    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.InitialState)
     val uiState = _uiState.asStateFlow()
 
     init {
-        _uiState.update { it.copy(isLoading = true) }
+        loadGames()
+    }
+
+    fun loadGames() {
+        viewModelScope.launch {
+            _uiState.update { UiState.Loading }
+            val games = gameRepository.getTrendingGames()
+                .map { gameDataModel -> Game.fromDataModel(gameDataModel) }
+            _uiState.update { UiState.Success(games.toImmutableList()) }
+        }
     }
 }
