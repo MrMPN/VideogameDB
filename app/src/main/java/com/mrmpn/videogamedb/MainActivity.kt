@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.mrmpn.videogamedb.ui.screens.trendingList.TrendingListScreen
+import com.mrmpn.videogamedb.ui.screens.trendingList.GameListScreen
 import com.mrmpn.videogamedb.ui.theme.VideogameDBTheme
 import kotlinx.collections.immutable.persistentListOf
 
@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    TrendingListScreen(games = persistentListOf())
+                    GameListScreen(games = persistentListOf())
                 }
             }
         }

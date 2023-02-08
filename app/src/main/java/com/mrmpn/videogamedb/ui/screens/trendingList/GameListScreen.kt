@@ -14,6 +14,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.ColorPainter
@@ -22,6 +23,8 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.mrmpn.videogamedb.R
 import com.mrmpn.videogamedb.ui.models.Game
@@ -33,7 +36,19 @@ import kotlinx.collections.immutable.toImmutableList
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun TrendingListScreen(games: ImmutableList<Game>, modifier: Modifier = Modifier) {
+fun GameListScreen(viewModel: TrendingListViewModel = viewModel()) {
+
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    when (val s = state) {
+        TrendingListViewModel.UiState.InitialState -> TODO()
+        is TrendingListViewModel.UiState.Loading -> TODO()
+        is TrendingListViewModel.UiState.Error -> TODO()
+        is TrendingListViewModel.UiState.Success -> GameListScreen(games = s.games.toImmutableList())
+    }
+}
+
+@Composable
+fun GameListScreen(games: ImmutableList<Game>, modifier: Modifier = Modifier) {
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
@@ -84,13 +99,13 @@ fun GameCard(game: Game, modifier: Modifier = Modifier) {
 
 @Composable
 @Preview
-private fun TrendingListScreenPreview() {
+private fun GameListScreenPreview() {
     VideogameDBTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = Color.White
         ) {
-            TrendingListScreen(
+            GameListScreen(
                 games = GamePreviewParameterProvider().values.toImmutableList()
             )
         }
