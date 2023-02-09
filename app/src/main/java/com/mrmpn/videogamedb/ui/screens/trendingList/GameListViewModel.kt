@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TrendingListViewModel @Inject constructor(private val gameRepository: GameRepository) : ViewModel() {
+class GameListViewModel @Inject constructor(private val gameRepository: GameRepository) : ViewModel() {
 
     sealed interface UiState {
         object InitialState : UiState

@@ -6,7 +6,7 @@ import com.mrmpn.videogamedb.R
 import com.mrmpn.videogamedb.di.HiltComponentActivity
 import com.mrmpn.videogamedb.ui.providers.GamePreviewParameterProvider
 import com.mrmpn.videogamedb.ui.screens.trendingList.GameListScreen
-import com.mrmpn.videogamedb.ui.screens.trendingList.TrendingListViewModel
+import com.mrmpn.videogamedb.ui.screens.trendingList.GameListViewModel
 import com.mrmpn.videogamedb.ui.theme.VideogameDBTheme
 import com.mrmpn.videogamedb.utils.waitUntilNodeCount
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -37,7 +37,7 @@ class GameListScreenTest {
 
         activityRule.setContent {
             VideogameDBTheme {
-                GameListScreen(TrendingListViewModel.UiState.Success(games))
+                GameListScreen(GameListViewModel.UiState.Success(games))
             }
         }
         activityRule

@@ -21,30 +21,30 @@ import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 
 @Composable
-fun GameListScreen(viewModel: TrendingListViewModel = viewModel()) {
+fun GameListScreen(viewModel: GameListViewModel = viewModel()) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     GameListScreen(state = state)
 }
 
 @Composable
-fun GameListScreen(state: TrendingListViewModel.UiState) {
+fun GameListScreen(state: GameListViewModel.UiState) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Color.White
     ) {
         when (state) {
-            is TrendingListViewModel.UiState.InitialState -> GameCardList(persistentListOf())
-            is TrendingListViewModel.UiState.Loading -> {
+            is GameListViewModel.UiState.InitialState -> GameCardList(persistentListOf())
+            is GameListViewModel.UiState.Loading -> {
                 Box {
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                 }
             }
-            is TrendingListViewModel.UiState.Error -> {
+            is GameListViewModel.UiState.Error -> {
                 Box {
                     state.errorMessage?.let { Text(text = it, modifier = Modifier.align(Alignment.Center)) }
                 }
             }
-            is TrendingListViewModel.UiState.Success -> GameCardList(games = state.games.toImmutableList())
+            is GameListViewModel.UiState.Success -> GameCardList(games = state.games.toImmutableList())
         }
     }
 }
@@ -52,7 +52,7 @@ fun GameListScreen(state: TrendingListViewModel.UiState) {
 @Composable
 @Preview
 private fun GameListScreenPreview(
-    @PreviewParameter(UiStatePreviewParameter::class) state: TrendingListViewModel.UiState
+    @PreviewParameter(UiStatePreviewParameter::class) state: GameListViewModel.UiState
 ) {
     VideogameDBTheme {
         GameListScreen(state)

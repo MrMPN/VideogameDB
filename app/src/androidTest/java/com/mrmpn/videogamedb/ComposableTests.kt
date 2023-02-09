@@ -5,7 +5,7 @@ import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import com.mrmpn.videogamedb.ui.providers.GamePreviewParameterProvider
 import com.mrmpn.videogamedb.ui.screens.trendingList.GameListScreen
-import com.mrmpn.videogamedb.ui.screens.trendingList.TrendingListViewModel
+import com.mrmpn.videogamedb.ui.screens.trendingList.GameListViewModel
 import com.mrmpn.videogamedb.ui.theme.VideogameDBTheme
 import com.mrmpn.videogamedb.utils.waitUntilNodeCount
 import kotlinx.collections.immutable.toImmutableList
@@ -24,7 +24,7 @@ class ComposableTests {
 
         activityRule.setContent {
             VideogameDBTheme {
-                GameListScreen(TrendingListViewModel.UiState.Success(games))
+                GameListScreen(GameListViewModel.UiState.Success(games))
             }
         }
         activityRule
