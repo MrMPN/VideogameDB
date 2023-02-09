@@ -76,11 +76,29 @@ android {
         ignoreTestSources true
         lintConfig rootProject.file('config/lint/lint.xml')
     }
-    testOptions.unitTests.all {
-        testLogging {
-            events = ["passed", "failed", "skipped", "standardOut", "standardError"]
+
+    testOptions {
+        unitTests.all {
+            testLogging {
+                events = ["passed", "failed", "skipped", "standardOut", "standardError"]
+            }
+        }
+        managedDevices {
+            managedDevices {
+                devices {
+                    pixel2api30 (com.android.build.api.dsl.ManagedVirtualDevice) {
+                        // Use device profiles you typically see in Android Studio.
+                        device = "Pixel 2"
+                        // Use only API levels 27 and higher.
+                        apiLevel = 30
+                        // To include Google services, use "google".
+                        systemImageSource = "aosp-atd"
+                    }
+                }
+            }
         }
     }
+
     kapt {
         correctErrorTypes true
     }

@@ -37,7 +37,6 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun GameListScreen(viewModel: TrendingListViewModel = viewModel()) {
-
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     when (val s = state) {
         TrendingListViewModel.UiState.InitialState -> Unit
