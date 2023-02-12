@@ -10,10 +10,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.mrmpn.videogamedb.R
 import com.mrmpn.videogamedb.ui.components.GameCardList
 import com.mrmpn.videogamedb.ui.providers.UiStatePreviewParameter
 import com.mrmpn.videogamedb.ui.theme.VideogameDBTheme
@@ -39,11 +42,20 @@ fun GameListScreen(state: GameListViewModel.UiState) {
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                 }
             }
+
             is GameListViewModel.UiState.Error -> {
                 Box {
-                    state.errorMessage?.let { Text(text = it, modifier = Modifier.align(Alignment.Center)) }
+                    state.errorMessage?.let {
+                        Text(
+                            text = it,
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .testTag(stringResource(id = R.string.general_load_error))
+                        )
+                    }
                 }
             }
+
             is GameListViewModel.UiState.Success -> GameCardList(games = state.games.toImmutableList())
         }
     }

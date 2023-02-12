@@ -34,7 +34,7 @@ fun GameCard(game: Game, modifier: Modifier = Modifier) {
         colors = CardDefaults.cardColors(containerColor = Grey, contentColor = Color.White)
     ) {
         AsyncImage(
-            model = game.image,
+            model = game.backgroundImage,
             placeholder = ColorPainter(Color.LightGray),
             error = ColorPainter(Color.LightGray),
             fallback = ColorPainter(Color.LightGray),
@@ -44,7 +44,7 @@ fun GameCard(game: Game, modifier: Modifier = Modifier) {
         )
         Column(modifier = Modifier.padding(horizontal = 16.dp)) {
             Text(
-                text = game.title,
+                text = game.name,
                 modifier = Modifier
                     .padding(vertical = 8.dp)
                     .testTag(stringResource(id = R.string.item_game_title))
@@ -52,7 +52,7 @@ fun GameCard(game: Game, modifier: Modifier = Modifier) {
             Text(
                 modifier = Modifier
                     .padding(vertical = 8.dp),
-                text = game.releaseDate.format(DateTimeFormatter.ISO_DATE)
+                text = game.releaseDate
             )
         }
     }

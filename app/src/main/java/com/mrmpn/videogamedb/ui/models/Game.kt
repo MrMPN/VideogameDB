@@ -5,23 +5,23 @@ import java.time.LocalDate
 
 data class Game(
     val id: Int,
-    val title: String,
-    val releaseDate: LocalDate,
-    val image: String? = null
+    val name: String,
+    val releaseDate: String,
+    val backgroundImage: String? = null
 ) {
     fun toDataModel() = GameDataModel(
         id = id,
-        title = title,
+        name = name,
         released = releaseDate,
-        image = image
+        backgroundImage = backgroundImage
     )
 
     companion object {
         fun fromDataModel(gameDataModel: GameDataModel) = Game(
             id = gameDataModel.id,
-            title = gameDataModel.title,
+            name = gameDataModel.name,
             releaseDate = gameDataModel.released,
-            image = gameDataModel.image
+            backgroundImage = gameDataModel.backgroundImage
         )
     }
 }

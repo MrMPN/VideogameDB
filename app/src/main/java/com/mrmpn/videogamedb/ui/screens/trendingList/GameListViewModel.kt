@@ -13,7 +13,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GameListViewModel @Inject constructor(private val gameRepository: GameRepository) : ViewModel() {
+class GameListViewModel @Inject constructor(private val gameRepository: GameRepository) :
+    ViewModel() {
 
     sealed interface UiState {
         object InitialState : UiState
@@ -32,9 +33,16 @@ class GameListViewModel @Inject constructor(private val gameRepository: GameRepo
     fun loadGames() {
         viewModelScope.launch {
             _uiState.update { UiState.Loading }
-            val games = gameRepository.getTrendingGames()
-                .map { gameDataModel -> Game.fromDataModel(gameDataModel) }
-            _uiState.update { UiState.Success(games.toImmutableList()) }
+            val result = gameRepository.getTrendingGames()
+                .map { list -> list.map { Game.fromDataModel(it) } }
+
+            result.onSuccess { games ->
+                _uiState.update { UiState.Success(games.toImmutableList()) }
+            }
+
+            result.onFailure { error ->
+                _uiState.update { UiState.Error(error.message) }
+            }
         }
     }
 }
