@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">VideogameDB</string>
-    <string name="item_game_title">Game title</string>
-    <string name="item_game_release">Game release date</string>
-    <string name="item_game_genres">Game genres</string>
     <string name="general_load_error">There\'s been an error</string>
+    <string name="item_game_release">Release date:</string>
+    <string name="item_game_genres">Genres:</string>
+    <string name="view_more">View more</string>
 </resources>

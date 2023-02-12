@@ -99,7 +99,7 @@ class GameListScreenTest {
 
         val response: RawgAPIResponse<GameDataModel> = KtorModule.json.decodeFromString(json)
 
-        val tag = activityRule.activity.getString(R.string.item_game_title)
+        val tag = activityRule.activity.getString(R.string.tag_item_game_title)
 
         activityRule.setContent {
             VideogameDBTheme {

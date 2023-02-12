@@ -22,7 +22,6 @@ import com.mrmpn.videogamedb.R
 import com.mrmpn.videogamedb.ui.models.Game
 import com.mrmpn.videogamedb.ui.providers.GamePreviewParameterProvider
 import com.mrmpn.videogamedb.ui.theme.Grey
-import java.time.format.DateTimeFormatter
 
 const val GameCardImageRatio = 16f / 9f
 
@@ -47,7 +46,7 @@ fun GameCard(game: Game, modifier: Modifier = Modifier) {
                 text = game.name,
                 modifier = Modifier
                     .padding(vertical = 8.dp)
-                    .testTag(stringResource(id = R.string.item_game_title))
+                    .testTag(stringResource(id = R.string.tag_item_game_title))
             )
             Text(
                 modifier = Modifier

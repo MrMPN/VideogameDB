@@ -1,13 +1,12 @@
 package com.mrmpn.videogamedb
 
 import androidx.activity.ComponentActivity
-import androidx.compose.ui.test.hasTestTag
+import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithTag
+import com.mrmpn.videogamedb.ui.components.GameCardList
 import com.mrmpn.videogamedb.ui.providers.GamePreviewParameterProvider
-import com.mrmpn.videogamedb.ui.screens.trendingList.GameListScreen
-import com.mrmpn.videogamedb.ui.screens.trendingList.GameListViewModel
 import com.mrmpn.videogamedb.ui.theme.VideogameDBTheme
-import com.mrmpn.videogamedb.utils.waitUntilNodeCount
 import kotlinx.collections.immutable.toImmutableList
 import org.junit.Rule
 import org.junit.Test
@@ -18,16 +17,15 @@ class ComposableTests {
     val activityRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun gameListScreenComposableDisplaysList() {
-        val tag = activityRule.activity.getString(R.string.item_game_title)
+    fun gameCardListLoadsCorrectly() {
+        val tag = activityRule.activity.getString(R.string.tag_item_game_title)
         val games = GamePreviewParameterProvider().values.toImmutableList()
 
         activityRule.setContent {
             VideogameDBTheme {
-                GameListScreen(GameListViewModel.UiState.Success(games))
+                GameCardList(games)
             }
         }
-        activityRule
-            .waitUntilNodeCount(hasTestTag(tag), games.size)
+        activityRule.onAllNodesWithTag(tag).assertCountEquals(games.size)
     }
 }
