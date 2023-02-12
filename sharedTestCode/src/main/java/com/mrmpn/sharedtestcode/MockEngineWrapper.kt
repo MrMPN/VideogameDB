@@ -1,4 +1,4 @@
-package com.mrmpn.videogamedb.utils
+package com.mrmpn.sharedtestcode
 
 import com.google.common.collect.LinkedListMultimap
 import io.ktor.client.engine.mock.MockEngine

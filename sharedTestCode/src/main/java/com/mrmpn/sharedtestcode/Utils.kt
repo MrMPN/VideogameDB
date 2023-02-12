@@ -1,4 +1,4 @@
-package com.mrmpn.videogamedb.utils
+package com.mrmpn.sharedtestcode
 
 import com.google.common.truth.Correspondence
 import com.google.common.truth.Truth

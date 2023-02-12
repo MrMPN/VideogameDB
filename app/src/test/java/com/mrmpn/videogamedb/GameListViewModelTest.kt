@@ -1,6 +1,10 @@
 package com.mrmpn.videogamedb
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.mrmpn.sharedtestcode.MockEngineWrapper
+import com.mrmpn.sharedtestcode.MockEngineWrapper.*
+import com.mrmpn.sharedtestcode.containsExactlyInstancesOf
+import com.mrmpn.sharedtestcode.loadFileText
 import com.mrmpn.videogamedb.data.GameRepository
 import com.mrmpn.videogamedb.data.remote.RAWGGameDataSource
 import com.mrmpn.videogamedb.data.remote.RawgApiClient
@@ -9,10 +13,6 @@ import com.mrmpn.videogamedb.di.KtorModule
 import com.mrmpn.videogamedb.ui.screens.trendingList.GameListViewModel
 import com.mrmpn.videogamedb.ui.screens.trendingList.GameListViewModel.UiState
 import com.mrmpn.videogamedb.utils.MainDispatcherRule
-import com.mrmpn.videogamedb.utils.MockEngineWrapper
-import com.mrmpn.videogamedb.utils.MockEngineWrapper.*
-import com.mrmpn.videogamedb.utils.containsExactlyInstancesOf
-import com.mrmpn.videogamedb.utils.loadFileText
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
@@ -131,6 +131,7 @@ class GameListViewModelTest {
             advanceUntilIdle() //Implicitly calls viewModel.loadGames()
             viewModel.loadGames()
             advanceUntilIdle()
+
 
             //Assert
             uiStates.containsExactlyInstancesOf(

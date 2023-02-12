@@ -3,6 +3,9 @@ package com.mrmpn.videogamedb.gameListScreen
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
+import com.mrmpn.sharedtestcode.MockEngineWrapper
+import com.mrmpn.sharedtestcode.MockEngineWrapper.*
+import com.mrmpn.sharedtestcode.loadFileText
 import com.mrmpn.videogamedb.R
 import com.mrmpn.videogamedb.data.models.GameDataModel
 import com.mrmpn.videogamedb.data.models.RawgAPIResponse
@@ -14,8 +17,6 @@ import com.mrmpn.videogamedb.di.HiltComponentActivity
 import com.mrmpn.videogamedb.di.KtorModule
 import com.mrmpn.videogamedb.ui.screens.trendingList.GameListScreen
 import com.mrmpn.videogamedb.ui.theme.VideogameDBTheme
-import com.mrmpn.videogamedb.utils.MockEngineWrapper
-import com.mrmpn.videogamedb.utils.loadFileText
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -89,7 +90,7 @@ class GameListScreenTest {
     @Test
     fun gameListScreenDisplaysList() = runTest(testDispatcher) {
         mockWrapper.addMockResponses(
-            MockEngineWrapper.MockResponse(
+            MockResponse(
                 path = RawgApiClient.GAMES_PATH,
                 jsonAsString = json,
                 statusCode = HttpStatusCode.OK //200
