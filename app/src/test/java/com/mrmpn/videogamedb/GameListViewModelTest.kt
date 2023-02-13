@@ -42,8 +42,7 @@ class GameListViewModelTest {
 
     private lateinit var viewModel: GameListViewModel
 
-    private val json = loadFileText(this, "/mockResponses/GetGames200.json")
-
+    private val jsonToLoad = loadFileText(this, "/mockResponses/GetGames200.json")
 
     @Before
     fun setUp() {
@@ -53,26 +52,26 @@ class GameListViewModelTest {
     @Test
     fun `on HTTP code 200`() =
         runTest() {
-            //Assemble
+            // Assemble
             mockWrapper.addMockResponses(
                 MockResponse(
                     path = rawgApi.apiPaths.GAMES_PATH,
-                    jsonAsString = json,
-                    statusCode = HttpStatusCode.OK //200
+                    jsonAsString = jsonToLoad,
+                    statusCode = HttpStatusCode.OK // 200
                 )
             )
 
             val uiStates = mutableListOf<UiState>()
 
-            //Here we DO need for this to be executed as soon as there's an emission, if we wanna catch all states
+            // Here we DO need for this to be executed as soon as there's an emission, if we wanna catch all states
             backgroundScope.launch(UnconfinedTestDispatcher()) {
                 viewModel.uiState.toList(uiStates)
             }
 
-            //Act
-            advanceUntilIdle() //Implicitly calls viewModel.loadGames()
+            // Act
+            advanceUntilIdle() // Implicitly calls viewModel.loadGames()
 
-            //Assert
+            // Assert
             uiStates.containsExactlyInstancesOf(
                 UiState.InitialState::class.java,
                 UiState.Loading::class.java,
@@ -82,7 +81,7 @@ class GameListViewModelTest {
 
     @Test
     fun `on HTTP code 400`() = runTest() {
-        //Assemble
+        // Assemble
         mockWrapper.addMockResponses(
             MockResponse(
                 path = rawgApi.apiPaths.GAMES_PATH,
@@ -95,10 +94,10 @@ class GameListViewModelTest {
             viewModel.uiState.toList(uiStates)
         }
 
-        //Act
-        advanceUntilIdle() //Implicitly calls viewModel.loadGames()
+        // Act
+        advanceUntilIdle() // Implicitly calls viewModel.loadGames()
 
-        //Assert
+        // Assert
         uiStates.containsExactlyInstancesOf(
             UiState.InitialState::class.java,
             UiState.Loading::class.java,
@@ -109,7 +108,7 @@ class GameListViewModelTest {
     @Test
     fun `on HTTP code 500 and then HTPP code 200`() =
         runTest() {
-            //Assemble
+            // Assemble
             mockWrapper.addMockResponses(
                 MockResponse(
                     path = rawgApi.apiPaths.GAMES_PATH,
@@ -117,7 +116,7 @@ class GameListViewModelTest {
                 ),
                 MockResponse(
                     path = rawgApi.apiPaths.GAMES_PATH,
-                    jsonAsString = json,
+                    jsonAsString = jsonToLoad,
                     statusCode = HttpStatusCode.OK // 200
                 )
             )
@@ -127,13 +126,12 @@ class GameListViewModelTest {
                 viewModel.uiState.toList(uiStates)
             }
 
-            //Act
-            advanceUntilIdle() //Implicitly calls viewModel.loadGames()
+            // Act
+            advanceUntilIdle() // Implicitly calls viewModel.loadGames()
             viewModel.loadGames()
             advanceUntilIdle()
 
-
-            //Assert
+            // Assert
             uiStates.containsExactlyInstancesOf(
                 UiState.InitialState::class.java,
                 UiState.Loading::class.java,

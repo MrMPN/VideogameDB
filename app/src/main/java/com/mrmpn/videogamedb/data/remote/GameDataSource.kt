@@ -1,8 +1,7 @@
-package com.mrmpn.videogamedb.data
+package com.mrmpn.videogamedb.data.remote
 
 import com.mrmpn.videogamedb.data.models.GameDataModel
 import com.mrmpn.videogamedb.data.models.RawgAPIResponse
-import com.mrmpn.videogamedb.data.remote.ApiResponse
 
 interface GameDataSource {
     suspend fun fetchTrendingGames(): ApiResponse<RawgAPIResponse<GameDataModel>>

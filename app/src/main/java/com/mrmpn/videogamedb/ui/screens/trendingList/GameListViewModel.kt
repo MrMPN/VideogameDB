@@ -3,7 +3,7 @@ package com.mrmpn.videogamedb.ui.screens.trendingList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mrmpn.videogamedb.data.GameRepository
-import com.mrmpn.videogamedb.ui.models.Game
+import com.mrmpn.videogamedb.domain.Game
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,7 +34,6 @@ class GameListViewModel @Inject constructor(private val gameRepository: GameRepo
         viewModelScope.launch {
             _uiState.update { UiState.Loading }
             val result = gameRepository.getTrendingGames()
-                .map { list -> list.map { Game.fromDataModel(it) } }
 
             result.onSuccess { games ->
                 _uiState.update { UiState.Success(games.toImmutableList()) }

@@ -1,6 +1,6 @@
 package com.mrmpn.videogamedb.di
 
-import com.mrmpn.videogamedb.data.GameDataSource
+import com.mrmpn.videogamedb.data.remote.GameDataSource
 import com.mrmpn.videogamedb.data.remote.RAWGGameDataSource
 import dagger.Binds
 import dagger.Module

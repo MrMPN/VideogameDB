@@ -1,6 +1,5 @@
 package com.mrmpn.videogamedb.data.remote
 
-
 sealed interface ApiResponse<out T> {
     /**
      * Represents successful network responses (2xx).

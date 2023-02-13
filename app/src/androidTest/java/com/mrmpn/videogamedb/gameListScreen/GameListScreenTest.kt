@@ -1,8 +1,10 @@
 package com.mrmpn.videogamedb.gameListScreen
 
 import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
+import androidx.compose.ui.test.onNodeWithText
 import com.mrmpn.sharedtestcode.MockEngineWrapper
 import com.mrmpn.sharedtestcode.MockEngineWrapper.*
 import com.mrmpn.sharedtestcode.loadFileText
@@ -14,7 +16,7 @@ import com.mrmpn.videogamedb.di.ApiKey
 import com.mrmpn.videogamedb.di.ApiUrl
 import com.mrmpn.videogamedb.di.AppModule
 import com.mrmpn.videogamedb.di.HiltComponentActivity
-import com.mrmpn.videogamedb.di.KtorModule
+import com.mrmpn.videogamedb.data.json
 import com.mrmpn.videogamedb.ui.screens.trendingList.GameListScreen
 import com.mrmpn.videogamedb.ui.theme.VideogameDBTheme
 import dagger.Module
@@ -80,7 +82,7 @@ class GameListScreenTest {
     @get:Rule(order = 1)
     val activityRule = createAndroidComposeRule<HiltComponentActivity>()
 
-    private val json = loadFileText(this, "/mockResponses/GetGames200.json")
+    private val jsonToLoad = loadFileText(this, "/mockResponses/GetGames200.json")
 
     @Before
     fun init() {
@@ -88,16 +90,16 @@ class GameListScreenTest {
     }
 
     @Test
-    fun gameListScreenDisplaysList() = runTest(testDispatcher) {
+    fun gameListScreenDisplaysListOnHTTP200() = runTest(testDispatcher) {
         mockWrapper.addMockResponses(
             MockResponse(
                 path = RawgApiClient.GAMES_PATH,
-                jsonAsString = json,
+                jsonAsString = jsonToLoad,
                 statusCode = HttpStatusCode.OK //200
             )
         )
 
-        val response: RawgAPIResponse<GameDataModel> = KtorModule.json.decodeFromString(json)
+        val response: RawgAPIResponse<GameDataModel> = json.decodeFromString(jsonToLoad)
 
         val tag = activityRule.activity.getString(R.string.tag_item_game_title)
 
@@ -108,5 +110,25 @@ class GameListScreenTest {
         }
         advanceUntilIdle()
         activityRule.onAllNodesWithTag(tag).assertCountEquals(response.results.size)
+    }
+
+    @Test
+    fun gameListScreenDisplaysErrorOnHTTP500() = runTest(testDispatcher) {
+        mockWrapper.addMockResponses(
+            MockResponse(
+                path = RawgApiClient.GAMES_PATH,
+                statusCode = HttpStatusCode.InternalServerError //500
+            )
+        )
+
+        val text = activityRule.activity.getString(R.string.general_load_error)
+
+        activityRule.setContent {
+            VideogameDBTheme {
+                GameListScreen()
+            }
+        }
+        advanceUntilIdle()
+        activityRule.onNodeWithText(text).assertIsDisplayed()
     }
 }

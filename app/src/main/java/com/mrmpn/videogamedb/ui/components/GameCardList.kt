@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.mrmpn.videogamedb.ui.models.Game
+import com.mrmpn.videogamedb.domain.Game
 import com.mrmpn.videogamedb.ui.providers.GamePreviewParameterProvider
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList

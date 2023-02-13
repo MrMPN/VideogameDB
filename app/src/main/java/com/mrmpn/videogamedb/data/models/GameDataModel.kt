@@ -1,17 +1,17 @@
 package com.mrmpn.videogamedb.data.models
 
+import com.mrmpn.videogamedb.domain.Game
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.time.LocalDate
 
 @Serializable
 data class GameDataModel(
-    @SerialName("id")
-    val id: Int,
-    @SerialName("name")
-    val name: String,
+    override val id: Int,
+    override val name: String,
     @SerialName("background_image")
-    val backgroundImage: String?,
+    override val backgroundImage: String?,
 //    @SerialName("genres")
 //    val genres: List<GenreDataModel>,
 //    @SerialName("metacritic")
@@ -20,11 +20,12 @@ data class GameDataModel(
 //    val parentPlatforms: List<ParentPlatformDataModel>,
 //    @SerialName("rating")
 //    val rating: Double,
+    @Contextual
     @SerialName("released")
-    val released: String,
+    override val releaseDate: LocalDate,
 //    @SerialName("tags")
 //    val tags: List<TagDataModel>,
-)
+) : Game
 
 @Serializable
 data class GenreDataModel(

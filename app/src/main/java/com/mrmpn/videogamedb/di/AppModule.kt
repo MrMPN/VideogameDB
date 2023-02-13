@@ -11,7 +11,6 @@ import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.okhttp.OkHttpConfig
 import io.ktor.client.engine.okhttp.OkHttpEngine
 
-
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {

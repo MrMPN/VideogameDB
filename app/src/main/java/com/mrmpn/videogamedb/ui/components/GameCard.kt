@@ -19,9 +19,12 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mrmpn.videogamedb.R
-import com.mrmpn.videogamedb.ui.models.Game
+import com.mrmpn.videogamedb.domain.Game
 import com.mrmpn.videogamedb.ui.providers.GamePreviewParameterProvider
 import com.mrmpn.videogamedb.ui.theme.Grey
+import com.mrmpn.videogamedb.ui.theme.VideogameDBTheme
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 const val GameCardImageRatio = 16f / 9f
 
@@ -51,7 +54,9 @@ fun GameCard(game: Game, modifier: Modifier = Modifier) {
             Text(
                 modifier = Modifier
                     .padding(vertical = 8.dp),
-                text = game.releaseDate
+                text = game.releaseDate.format(
+                    DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+                )
             )
         }
     }
@@ -60,5 +65,7 @@ fun GameCard(game: Game, modifier: Modifier = Modifier) {
 @Composable
 @Preview()
 private fun GameCardPreview(@PreviewParameter(GamePreviewParameterProvider::class) game: Game) {
-    GameCard(game)
+    VideogameDBTheme {
+        GameCard(game = game)
+    }
 }

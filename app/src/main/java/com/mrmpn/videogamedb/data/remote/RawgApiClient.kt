@@ -19,4 +19,5 @@ class RawgApiClient(private val httpClient: HttpClient) {
             method = HttpMethod.Get
             url { path(GAMES_PATH) }
         }
-    }}
+    }
+}

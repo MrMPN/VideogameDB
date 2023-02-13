@@ -19,16 +19,10 @@ import io.ktor.client.request.accept
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
-import kotlinx.serialization.json.Json
 
 @Module
 @InstallIn(SingletonComponent::class)
 object KtorModule {
-
-    val json: Json = Json {
-        ignoreUnknownKeys = true
-        isLenient = true
-    }
 
     @Provides
     fun provideHttpClient(
@@ -38,7 +32,7 @@ object KtorModule {
             expectSuccess = true
 
             install(ContentNegotiation) {
-                json(json = json)
+                json(json = com.mrmpn.videogamedb.data.json)
             }
 
             addDefaultResponseValidation()
@@ -48,7 +42,6 @@ object KtorModule {
                     override fun log(message: String) {
                         Log.d("Net", message)
                     }
-
                 }
                 level = LogLevel.ALL
             }
