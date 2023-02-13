@@ -8,14 +8,16 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.engine.HttpClientEngine
-import io.ktor.client.engine.cio.CIO
+import io.ktor.client.engine.okhttp.OkHttpConfig
+import io.ktor.client.engine.okhttp.OkHttpEngine
+
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
     @Provides
-    fun provideHttpClientEngine(): HttpClientEngine = CIO.create()
+    fun provideHttpClientEngine(): HttpClientEngine = OkHttpEngine(OkHttpConfig())
 
     @Provides
     @ApiUrl
