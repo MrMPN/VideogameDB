@@ -47,7 +47,7 @@ fun GameListScreen(state: GameListViewModel.UiState) {
                 Box {
                     state.errorMessage?.let {
                         Text(
-                            text = it,
+                            text = stringResource(id = R.string.general_load_error),
                             modifier = Modifier
                                 .align(Alignment.Center)
                                 .testTag(stringResource(id = R.string.general_load_error))
