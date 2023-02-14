@@ -4,4 +4,7 @@
     <string name="item_game_release">Release date:</string>
     <string name="item_game_genres">Genres:</string>
     <string name="view_more">View more</string>
+    <string name="playstation">Playstation</string>
+    <string name="xbox">Xbox</string>
+    <string name="pc">PC</string>
 </resources>

@@ -12,12 +12,12 @@ data class GameDataModel(
     override val name: String,
     @SerialName("background_image")
     override val backgroundImage: String?,
-//    @SerialName("genres")
-//    val genres: List<GenreDataModel>,
+    @SerialName("genres")
+    val genres: List<GenreDataModel>,
 //    @SerialName("metacritic")
 //    val metacritic: Int,
-//    @SerialName("parent_platforms")
-//    val parentPlatforms: List<ParentPlatformDataModel>,
+    @SerialName("parent_platforms")
+    val parentPlatforms: List<ParentPlatformDataModel>,
 //    @SerialName("rating")
 //    val rating: Double,
     @Contextual
