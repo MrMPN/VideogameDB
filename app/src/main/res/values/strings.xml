@@ -1,10 +1,9 @@
 <resources>
     <string name="app_name">VideogameDB</string>
     <string name="general_load_error">There\'s been an error</string>
-    <string name="item_game_release">Release date:</string>
+    <string name="item_game_release">Release date</string>
     <string name="item_game_genres">Genres:</string>
     <string name="view_more">View more</string>
-    <string name="playstation">Playstation</string>
-    <string name="xbox">Xbox</string>
-    <string name="pc">PC</string>
+    <string name="view_less">View less</string>
+    <string name="genres">Genres</string>
 </resources>

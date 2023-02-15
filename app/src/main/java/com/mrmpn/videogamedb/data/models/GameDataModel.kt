@@ -1,6 +1,8 @@
 package com.mrmpn.videogamedb.data.models
 
 import com.mrmpn.videogamedb.domain.Game
+import com.mrmpn.videogamedb.domain.Genre
+import com.mrmpn.videogamedb.domain.Platform
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -12,12 +14,11 @@ data class GameDataModel(
     override val name: String,
     @SerialName("background_image")
     override val backgroundImage: String?,
-    @SerialName("genres")
-    val genres: List<GenreDataModel>,
+    override val genres: List<GenreDataModel>,
 //    @SerialName("metacritic")
 //    val metacritic: Int,
     @SerialName("parent_platforms")
-    val parentPlatforms: List<ParentPlatformDataModel>,
+    val rootParentPlatforms: List<ParentPlatformDataModel>,
 //    @SerialName("rating")
 //    val rating: Double,
     @Contextual
@@ -25,21 +26,22 @@ data class GameDataModel(
     override val releaseDate: LocalDate,
 //    @SerialName("tags")
 //    val tags: List<TagDataModel>,
-) : Game
+) : Game {
+    override val parentPlatforms: List<Platform> =
+        rootParentPlatforms.map { it.platform }
+}
+
 
 @Serializable
 data class GenreDataModel(
-    @SerialName("id")
-    val id: Int,
+    override val id: Int,
     @SerialName("image_background")
-    val imageBackground: String,
-    @SerialName("name")
-    val name: String,
-)
+    override val imageBackground: String,
+    override val name: String,
+) : Genre
 
 @Serializable
 data class ParentPlatformDataModel(
-    @SerialName("platform")
     val platform: PlatformDataModel
 )
 
@@ -47,24 +49,17 @@ data class ParentPlatformDataModel(
 data class TagDataModel(
     @SerialName("games_count")
     val gamesCount: Int,
-    @SerialName("id")
     val id: Int,
     @SerialName("image_background")
     val imageBackground: String,
-    @SerialName("language")
     val language: String,
-    @SerialName("name")
     val name: String,
-    @SerialName("slug")
     val slug: String
 )
 
 @Serializable
 data class PlatformDataModel(
-    @SerialName("id")
-    val id: Int,
-    @SerialName("name")
-    val name: String,
-    @SerialName("slug")
+    override val id: Int,
+    override val name: String,
     val slug: String
-)
+) : Platform

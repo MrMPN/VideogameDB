@@ -21,3 +21,11 @@ class GamePreviewParameterProvider : PreviewParameterProvider<Game> {
     }
 
 }
+
+/**
+ * Just combining games and booleans for the previews.
+ * Useful for GameCardPreview as it has a boolean parameter for card expanded state.
+ */
+class GameToBooleanProvider : PairCombinedPreviewParameter<Game, Boolean>(
+    GamePreviewParameterProvider() to BooleanPreviewParameterProvider()
+)

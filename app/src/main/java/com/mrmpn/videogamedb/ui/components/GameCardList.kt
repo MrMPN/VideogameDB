@@ -26,7 +26,7 @@ fun GameCardList(games: ImmutableList<Game>, modifier: Modifier = Modifier) {
                 game.id
             }
         ) { game ->
-            GameCard(game = game)
+            GameCard(game = game, expanded = false, onClickViewMore = { })
         }
     }
 }

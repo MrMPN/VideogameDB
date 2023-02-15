@@ -7,4 +7,17 @@ interface Game {
     val name: String
     val releaseDate: LocalDate
     val backgroundImage: String?
+    val genres: List<Genre>
+    val parentPlatforms: List<Platform>
+}
+
+interface Genre {
+    val id: Int
+    val imageBackground: String
+    val name: String
+}
+
+interface Platform {
+    val id: Int
+    val name: String
 }
