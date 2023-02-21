@@ -7,6 +7,8 @@ import androidx.compose.ui.test.filterToOne
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
+import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.mrmpn.sharedtestcode.loadFileText
@@ -43,6 +45,29 @@ class ComposableTests {
             }
         }
         activityRule.onAllNodesWithTag(tag).assertCountEquals(games.size)
+    }
+
+    @Test
+    fun gameCardListOnlyAllowsOneExpandedCard() {
+        jsonToLoad = loadFileText(this, "/mockResponses/GetGames200.json")
+
+        val viewMore = activityRule.activity.getString(R.string.view_more)
+        val viewLess = activityRule.activity.getString(R.string.view_less)
+
+        val games = json.decodeFromString<RawgAPIResponse<Game>>(jsonToLoad).results
+
+        activityRule.setContent {
+            VideogameDBTheme {
+                GameCardList(games.toImmutableList())
+            }
+        }
+        activityRule.onAllNodesWithText(viewMore).assertCountEquals(games.size)
+        activityRule.onAllNodesWithText(viewMore).onFirst().performClick()
+        activityRule.onNodeWithText(viewLess).assertIsDisplayed()
+        activityRule.onAllNodesWithText(viewLess).assertCountEquals(1)
+        activityRule.onAllNodesWithText(viewMore).assertCountEquals(games.size - 1)
+        activityRule.onNodeWithText(viewLess).performClick()
+        activityRule.onAllNodesWithText(viewMore).assertCountEquals(games.size)
     }
 
     @Test

@@ -3,6 +3,7 @@ package com.mrmpn.videogamedb.ui.screens.trendingList
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,8 +33,7 @@ fun GameListScreen(viewModel: GameListViewModel = viewModel()) {
 @Composable
 fun GameListScreen(state: GameListViewModel.UiState) {
     Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = Color.White
+        modifier = Modifier.fillMaxSize()
     ) {
         when (state) {
             is GameListViewModel.UiState.InitialState -> GameCardList(persistentListOf())
