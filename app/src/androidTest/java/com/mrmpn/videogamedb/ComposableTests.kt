@@ -9,6 +9,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onFirst
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.mrmpn.sharedtestcode.loadFileText
@@ -17,6 +18,7 @@ import com.mrmpn.videogamedb.data.models.RawgAPIResponse
 import com.mrmpn.videogamedb.domain.Game
 import com.mrmpn.videogamedb.ui.components.GameCard
 import com.mrmpn.videogamedb.ui.components.GameCardList
+import com.mrmpn.videogamedb.ui.components.Selector
 import com.mrmpn.videogamedb.ui.dateFormat
 import com.mrmpn.videogamedb.ui.theme.VideogameDBTheme
 import kotlinx.collections.immutable.toImmutableList
@@ -103,5 +105,19 @@ class ComposableTests {
         game.genres.forEach {
             activityRule.onNodeWithText(it.name, substring = true).assertIsDisplayed()
         }
+    }
+
+    @Test
+    fun selectorComposableOpensDialog() {
+        val selectorTag = activityRule.activity.getString(R.string.tag_selector)
+        val selectorTagDialog = activityRule.activity.getString(R.string.tag_selector_dialog)
+
+        activityRule.setContent {
+            VideogameDBTheme {
+                Selector()
+            }
+        }
+        activityRule.onNodeWithTag(selectorTag).performClick()
+        activityRule.onNodeWithTag(selectorTagDialog).assertIsDisplayed()
     }
 }
