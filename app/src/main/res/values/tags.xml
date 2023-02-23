@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tag_item_game_title" translatable="false">Game title</string>
+    <string name="tag_parent_platform" translatable="false">Parent platform</string>
+    <string name="tag_selector" translatable="false">Selector</string>
+    <string name="tag_selector_dialog" translatable="false">Selector dialog</string>
+</resources>

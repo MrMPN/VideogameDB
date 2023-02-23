@@ -8,3 +8,6 @@ style:
     ignorePropertyDeclaration: true
   UnusedPrivateMember:
     ignoreAnnotated: ['Preview']
+complexity:
+  LongMethod:
+    ignoreAnnotated: ['Composable']
