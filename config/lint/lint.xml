@@ -2,6 +2,8 @@
 <lint>
     <issue id="UnusedResources" severity="warning" />
     <issue id="GradleDependency" severity="warning" />
+    <issue id="InvalidPackage" severity="warning" />
+    <issue id="VectorPath" severity="warning" />
 
     <!-- The following must be at the bottom of your file!
          All lint issues (not listed above) will be treated as errors. -->

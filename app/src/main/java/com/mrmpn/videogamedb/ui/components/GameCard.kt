@@ -188,10 +188,12 @@ private fun GameCardPreview(
     var expanded by remember { mutableStateOf(gameBooleanPair.second) }
 
     VideogameDBTheme {
-        GameCard(game = gameBooleanPair.first,
+        GameCard(
+            game = gameBooleanPair.first,
             expanded = expanded,
             onClickViewMore = {
                 expanded = !expanded
-            })
+            }
+        )
     }
 }

@@ -19,7 +19,6 @@ class GamePreviewParameterProvider : PreviewParameterProvider<Game> {
             )
         ).asSequence()
     }
-
 }
 
 /**

@@ -21,7 +21,6 @@ import kotlinx.collections.immutable.toImmutableList
  */
 @Composable
 fun GameCardList(games: ImmutableList<Game>, modifier: Modifier = Modifier) {
-
     var expandedGame: Game? by remember { mutableStateOf(null) }
 
     fun onGameClick(game: Game) {

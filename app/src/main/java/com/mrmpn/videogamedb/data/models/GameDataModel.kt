@@ -31,7 +31,6 @@ data class GameDataModel(
         rootParentPlatforms.map { it.platform }
 }
 
-
 @Serializable
 data class GenreDataModel(
     override val id: Int,

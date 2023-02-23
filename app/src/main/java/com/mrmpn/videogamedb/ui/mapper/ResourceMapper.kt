@@ -3,7 +3,7 @@ package com.mrmpn.videogamedb.ui.mapper
 import com.mrmpn.videogamedb.R
 import com.mrmpn.videogamedb.domain.Platform
 
-//@DrawableRes
+// @DrawableRes
 val Platform.logo: Int?
     get() = when (this.id) {
         1 -> R.drawable.logo_windows
