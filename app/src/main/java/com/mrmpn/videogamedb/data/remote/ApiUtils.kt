@@ -10,6 +10,7 @@ import io.ktor.serialization.JsonConvertException
 import io.ktor.utils.io.errors.IOException
 import kotlinx.serialization.SerializationException
 
+@Suppress("TooGenericExceptionCaught")
 suspend inline fun <reified T> HttpClient.safeRequest(
     block: HttpRequestBuilder.() -> Unit,
 ): ApiResponse<T> =

@@ -9,7 +9,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class DataModule {
+interface DataModule {
     @Binds
-    abstract fun bindGameDataSource(rawgGameDataSource: RAWGGameDataSource): GameDataSource
+    fun bindGameDataSource(rawgGameDataSource: RAWGGameDataSource): GameDataSource
 }

@@ -29,9 +29,9 @@ fun GameListScreen(viewModel: GameListViewModel = viewModel()) {
 }
 
 @Composable
-fun GameListScreen(state: GameListViewModel.UiState) {
+fun GameListScreen(state: GameListViewModel.UiState, modifier: Modifier = Modifier) {
     Surface(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
         when (state) {
             is GameListViewModel.UiState.InitialState -> GameCardList(persistentListOf())

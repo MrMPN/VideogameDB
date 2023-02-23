@@ -61,8 +61,8 @@ const val GameCardImageRatio = 16f / 9f
 
 @Composable
 fun GameCard(
-    modifier: Modifier = Modifier,
     game: Game,
+    modifier: Modifier = Modifier,
 ) {
     var expanded by remember { mutableStateOf(false) }
     GameCard(
@@ -75,10 +75,10 @@ fun GameCard(
 
 @Composable
 fun GameCard(
-    modifier: Modifier = Modifier,
     game: Game,
+    onClickViewMore: () -> Unit,
+    modifier: Modifier = Modifier,
     expanded: Boolean = false,
-    onClickViewMore: (Game) -> Unit
 ) {
     Card(
         modifier = modifier
@@ -171,7 +171,7 @@ fun GameCard(
                 modifier = Modifier
                     .padding(top = 12.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .clickable(onClick = { onClickViewMore(game) })
+                    .clickable(onClick = { onClickViewMore() })
                     .align(Alignment.CenterHorizontally),
                 text = stringResource(id = if (expanded) R.string.view_less else R.string.view_more),
                 textDecoration = TextDecoration.Underline,

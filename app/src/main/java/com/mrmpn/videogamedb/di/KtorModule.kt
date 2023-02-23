@@ -24,6 +24,8 @@ import io.ktor.serialization.kotlinx.json.json
 @InstallIn(SingletonComponent::class)
 object KtorModule {
 
+    const val TIMEOUT = 30_000L
+
     @Provides
     fun provideHttpClient(
         engine: HttpClientEngine
@@ -47,9 +49,9 @@ object KtorModule {
             }
 
             install(HttpTimeout) {
-                requestTimeoutMillis = 30_000
-                connectTimeoutMillis = 30_000
-                socketTimeoutMillis = 30_000
+                requestTimeoutMillis = TIMEOUT
+                connectTimeoutMillis = TIMEOUT
+                socketTimeoutMillis = TIMEOUT
             }
         }
         return httpClient
