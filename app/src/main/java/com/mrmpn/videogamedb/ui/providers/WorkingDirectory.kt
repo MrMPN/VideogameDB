@@ -9,5 +9,5 @@ package com.mrmpn.videogamedb.ui.providers
  * Maybe I'll look for a better way...
  */
 object WorkingDirectory {
-    val basePath = "ADD_PROJECT_ROOTH_PATH_HERE"
+    const val basePath = "ADD_PROJECT_ROOTH_PATH_HERE"
 }
